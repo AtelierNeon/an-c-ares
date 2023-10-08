@@ -44,8 +44,8 @@ $ProjectWithWorkaroundSpectre = if ($Env:MY_PROJECT_WITH_WORKAROUND_SPECTRE) {$E
 ####
 #### Project component level config
 ####
-$ProjectCaresWithDisabledApps = if ($Env:MY_PROJECT_CARES_WITH_DISABLED_APPS) {$Env:MY_PROJECT_CARES_WITH_DISABLED_APPS} else {'OFF'}
-$ProjectCaresWithDisabledTestApps = if ($Env:MY_PROJECT_CARES_WITH_DISABLED_TEST_APPS) {$Env:MY_PROJECT_CARES_WITH_DISABLED_TEST_APPS} else {'OFF'}
+$ProjectCaresWithoutApps = if ($Env:MY_PROJECT_CARES_WITHOUT_APPS) {$Env:MY_PROJECT_CARES_WITHOUT_APPS} else {'OFF'}
+$ProjectCaresWithoutTestApps = if ($Env:MY_PROJECT_CARES_WITHOUT_TEST_APPS) {$Env:MY_PROJECT_CARES_WITHOUT_TEST_APPS} else {'OFF'}
 
 ##
 ## My variables
@@ -55,11 +55,11 @@ $MyCmakeCommonArgumentList = @(
         "-T $ProjectToolset",
         "-DMY_REVISION=$ProjectRevision"
 )
-if ('ON'.Equals($ProjectCaresWithDisabledApps)) {
-    $MyCmakeCommonArgumentList += "-DCARES_WITH_DISABLED_APPS=$ProjectCaresWithDisabledApps"
+if ('ON'.Equals($ProjectCaresWithoutApps)) {
+    $MyCmakeCommonArgumentList += "-DCARES_WITHOUT_APPS=$ProjectCaresWithoutApps"
 }
-if ('ON'.Equals($ProjectCaresWithDisabledTestApps)) {
-    $MyCmakeCommonArgumentList += "-DCARES_WITH_DISABLED_TEST_APPS=$ProjectCaresWithDisabledTestApps"
+if ('ON'.Equals($ProjectCaresWithoutTestApps)) {
+    $MyCmakeCommonArgumentList += "-DCARES_WITHOUT_TEST_APPS=$ProjectCaresWithoutTestApps"
 }
 if ('ON'.Equals($ProjectWithSharedVcrt)) {
     $MyCmakeCommonArgumentList += "-DBUILD_WITH_SHARED_VCRT=$ProjectWithSharedVcrt"
@@ -129,8 +129,8 @@ Write-Information "[PowerShell] Project information: Disable clean build: $Proje
 Write-Information "[PowerShell] Project information: CMake generator: `"$MyCmakeGenerator`""
 Write-Information "[PowerShell] Project information: CMake toolset: `"$ProjectToolset`""
 Write-Information "[PowerShell] Project information: CMake platform to build: $MyCmakePlatformToBuildListString"
-Write-Information "[PowerShell] Component information: c-ares with disabled apps: $ProjectCaresWithDisabledApps"
-Write-Information "[PowerShell] Component information: c-ares with disabled test apps: $ProjectCaresWithDisabledTestApps"
+Write-Information "[PowerShell] Component information: c-ares without apps: $ProjectCaresWithoutApps"
+Write-Information "[PowerShell] Component information: c-ares without test apps: $ProjectCaresWithoutTestApps"
 
 
 
